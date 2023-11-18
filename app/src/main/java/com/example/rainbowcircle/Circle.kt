@@ -19,6 +19,8 @@ class Circle(
 
     private val drawTextDegrees = mutableSetOf<Int>()
 
+    private var spinResultListener: ((Int) -> Unit)? = null
+
     private val colors = listOf(
         ContextCompat.getColor(context, R.color.RED),
         ContextCompat.getColor(context, R.color.ORANGE),
@@ -50,6 +52,7 @@ class Circle(
     }
 
     override fun onDraw(canvas: Canvas) {
+        println(x)
         super.onDraw(canvas)
         drawRainbowCircle(canvas)
         drawText(canvas)
@@ -111,15 +114,21 @@ class Circle(
                 drawTextDegrees.add(winnerIndex)
             }
         }
+        spinResultListener?.invoke(winnerIndex)
         invalidate()
     }
 
     override fun onAnimationRepeat(p0: Animation?) = Unit
 
+    fun setResultListener(listener: ((Int) -> Unit)?) {
+        spinResultListener = listener
+    }
+
     fun reset() {
         drawTextDegrees.clear()
         invalidate()
     }
+
 
 }
 

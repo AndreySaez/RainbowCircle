@@ -16,12 +16,18 @@ class MainActivity : AppCompatActivity() {
         val green = findViewById<ImageView>(R.id.iv_green)
         val blue = findViewById<ImageView>(R.id.iv_blue)
 
-        orange.load("https://placekitten.com/201/300")
-        green.load("https://placekitten.com/201/300")
-        blue.load("https://placekitten.com/201/300")
-
+        circle.setResultListener { result ->
+            when (result) {
+                1 -> orange.load("https://placekitten.com/201/300")
+                3 -> green.load("https://placekitten.com/200/300")
+                5 -> blue.load("https://placekitten.com/199/300")
+            }
+        }
         resetButton.setOnClickListener {
             circle.reset()
+            orange.setImageDrawable(null)
+            green.setImageDrawable(null)
+            blue.setImageDrawable(null)
         }
 
     }
